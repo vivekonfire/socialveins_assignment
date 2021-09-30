@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
+import useStore from "./store";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const loading = useStore((state) => state.loading);
+    const setLoading = useStore((state) => state.setLoading);
+
+    const LoadingButton = () => {
+        setLoading();
+    };
+
+    return (
+        <div className="App">
+            {loading && (
+                <ClipLoader color="#5E9CBE" loading={loading} size={150} />
+            )}
+            {loading && (
+                <button className="btn" type="button" onClick={LoadingButton}>
+                    Button
+                </button>
+            )}
+        </div>
+    );
 }
 
 export default App;
